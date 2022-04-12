@@ -1,0 +1,61 @@
+
+{% extends 'filterapp/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %} Accessing Data {% endblock %}
+
+{% block body %}
+    {% if filter %}
+
+        <form method="get">
+           <h4>Filter Fields</h4>
+           <div class="row">
+               <div class="form-group col-md-3 col-sm-4">
+                  {{ filter.form.username.label_tag }}
+                  {% render_field  filter.form.username|attr:"autocomplete:off" class="form-control" placeholder="your username" %}
+{#                  <input type="text" class="form-control" placeholder="yourname" autofocus  autocomplete="off">#}
+               </div>
+
+               <div class="form-group col-md-3 col-sm-4">
+                  {{ filter.form.first_name.label_tag }}
+                  {% render_field  filter.form.first_name class="form-control" %}
+               </div>
+
+               <div class="form-group col-md-3 col-sm-4">
+                  {{ filter.form.last_name.label_tag }}
+                  {% render_field  filter.form.last_name class="form-control" %}
+               </div>
+           </div> <!-- row close -->
+
+           <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+       <table class="table table-bordered table-hover table-striped table-dark">
+          <thead>
+             <tr>
+                 <th>Username</th>
+                 <th>FirstName</th>
+                 <th>LastName</th>
+                 <th>Date Joined</th>
+             </tr>
+          </thead>
+       {% for user in filter.qs %}
+          <tbody>
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.date_joined }}</td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td colspan="4">No Matched Data</td>
+            </tr>
+          </tbody>
+       {% endfor %}
+       </table>
+    {% else %}
+       <h1>No matched data</h1>
+    {% endif %}
+{% endblock %}

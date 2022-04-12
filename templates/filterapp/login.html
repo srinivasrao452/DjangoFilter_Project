@@ -1,0 +1,27 @@
+
+{% extends 'filterapp/base.html' %}
+
+{% block  title %} Login Page {% endblock %}
+
+{% block  body %}
+   {% if form %}
+       <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-3 col-sm-2"></div>
+            <div class="col-md-6 col-sm-8 col-xs-12">
+                <form method="POST" id="reg_form">
+                    {% csrf_token %}
+                    <table style="background-color: orange;">
+                        {{ form }}
+                    </table>
+                    <input type="submit" value="Login" style="margin-left: 150px;">
+                </form>
+            </div> <!--  row1 close -->
+             <div class="col-md-3 col-sm-2"></div>
+         </div> <!--  row1 close -->
+       </div> <!-- container close -->
+
+   {% else %}
+      <h1> {{ error }}</h1>
+   {% endif %}
+{% endblock %}

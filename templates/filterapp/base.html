@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        {% block title %}   {% endblock %}
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+ <style>
+     .container {
+         background-color: lightgray;
+         padding: 20px;
+         margin-top: 100px;
+         margin-bottom: 60px;
+     }
+     form{
+         background-color: orange;
+         padding: 30px;
+         margin-bottom: 30px;
+     }
+
+     td{
+         padding: 10px 30px;
+     }
+
+     #footer{
+         background-color: black;
+         color: white;
+         text-align: center;
+         padding: 10px;
+         position: fixed;
+         bottom: 0;
+         left: 0;
+         width: 100%;
+     }
+     .navbar-brand{
+         font-size: 30px;
+         margin-top: 1px;
+         font-family: fantasy;
+     }
+
+     .form-control{
+         background-color: yellow;
+         border: 2px solid blue;
+     }
+
+ </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-md  navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a href="#" class="navbar navbar-brand">
+              <sup style="font-size: 30px;padding-top: 20px;font-family: fantasy;">Django-Filters</sup>
+              <sub style="color: yellow;font-family: fantasy;">by NIT</sub>
+            </a>
+
+            <button type="button" class="navbar-toggler"  data-toggle="collapse"
+                    data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav mr-auto"> </ul>
+
+                <ul class="navbar-nav nav nav-pills">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="{% url 'logout' %}" class="nav-link"> Logout </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'login' %}" class="nav-link"> Login </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'register' %}" class="nav-link"> Register </a>
+                        </li>
+                    {% endif %}
+
+                </ul>
+
+            </div> <!-- id collapsibleNavbar  div close -->
+
+        </div><!-- container-fluid div close -->
+    </nav>
+
+    <div class="container">
+       <div class="col-md-12">
+           <h3 class="text-primary">How to Filter uerySets Dynamically using Django</h3>
+           <hr style="border-top: 5px solid cyan">
+
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissable">
+                 <button type="button" class="close" data-dismiss="alert">&times;</button>
+                 {{ message }}
+              </div>
+           {% endfor %}
+
+            {% block  body %}
+
+            {% endblock %}
+       </div>
+    </div> <!-- container close div -->
+
+    <footer id="footer">
+        Copy Rights &copy; <a href="#"> NIT</a>. All rights reserved
+    </footer>
+
+
+</body>
+</html>
